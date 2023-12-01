@@ -1,0 +1,67 @@
+<h1>New Event</h1>
+<hr>
+<div class="col-md-6">
+    <form #newEventForm="ngForm" (ngSubmit)="saveEvent(newEventForm.value)" autocomplete="off" novalidate>
+        <div class="form-group" [class.error]="!validateField(newEventForm, 'name')">
+            <label for="name">Event Name:</label>
+            <em *ngIf="!validateField(newEventForm, 'name')">Required</em>
+            <input [(ngModel)]="newForm.name" name="name" required id="name" type="text" class="form-control"
+                placeholder="Name of your event..." />
+        </div>
+        <div class="form-group" [ngClass]="{'error': !validateField(newEventForm, 'date')}">
+            <label for="eventDate">Event Date:</label>
+            <em *ngIf="!validateField(newEventForm, 'date')">Required</em>
+            <input (ngModel)="newForm.date" name="date" required id="eventDate" type="text" class="form-control"
+                placeholder="format (mm/dd/yyyy)..." />
+        </div>
+        <div class="form-group" [ngClass]="{'error': !validateField(newEventForm, 'time')}">
+            <label for="eventTime">Event Time:</label>
+            <em *ngIf="!validateField(newEventForm, 'time')">Required</em>
+            <input (ngModel)="newForm.time" name="time" required id="eventTime" type="text" class="form-control"
+                placeholder="start and end time..." />
+        </div>
+        <div class="form-group" [ngClass]="{'error': !validateField(newEventForm, 'price')}">
+            <label for="eventPrice">Event Price:</label>
+            <em *ngIf="!validateField(newEventForm, 'price')">Required</em>
+            <input (ngModel)="newForm.price" name="price" required id="eventPrice" type="text" type="number"
+                class="form-control" placeholder="event price..." />
+        </div>
+
+        <div ngModelGroup="location">
+            <div class="form-group">
+                <label for="address">Event Location:</label>
+                <input (ngModel)="newForm.address" name="address" id="address" type="text" class="form-control"
+                    placeholder="Address of event..." />
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input (ngModel)="newForm.city" name="city" id="city" type="text" class="form-control"
+                        placeholder="City..." />
+                </div>
+                <div class="col-md-6">
+                    <input (ngModel)="newForm.country" name="country" id="country" type="text" class="form-control"
+                        placeholder="Country..." />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="onlineUrl">Online Url:</label>
+            <input (ngModel)="newForm.onlineUrl" name="onlineUrl" id="onlineUrl" type="text" class="form-control"
+                placeholder="Online Url..." />
+        </div>
+        <div class="form-group" [ngClass]="{'error': !validateField(newEventForm, 'imageUrl')}">
+            <label for="imageUrl">Image:</label>
+            <em *ngIf="!validateField(newEventForm, 'imageUrl') &&
+       newEventForm.controls['imageUrl']?.errors?.['required']">Required</em>
+            <em *ngIf="!validateField(newEventForm, 'imageUrl') && 
+      newEventForm.controls['imageUrl']?.errors?.['pattern']">Must be a png or jpg url</em>
+            <input (ngModel)="newForm.imageUrl" name="imageUrl" required pattern=".*\/.*.(png|jpg)" id="imageUrl"
+                type="text" class="form-control" placeholder="url of image..." />
+            <img />
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!newEventForm.valid">Save</button>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </form>
+</div>

@@ -1,0 +1,28 @@
+<h1>Login</h1>
+<hr>
+<!-- Template Form -->
+<div class="col-md-4">
+    <form #loginForm="ngForm" (ngSubmit)="handlLogin(loginForm)" autocomplete="off" novalidate>
+        <div class="form-group">
+            <label for="userName">User Name:</label>
+            <em
+                *ngIf="!loginForm.controls['userName']?.valid && (loginForm.controls['userName']?.touched || isHoveringLoginButton)">Required</em>
+            <input (ngModel)="userName" name="userName" id="userName" type="text" class="form-control"
+                placeholder="User Name..." required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <em
+                *ngIf="!loginForm.controls['password']?.valid && (loginForm.controls['password']?.touched || isHoveringLoginButton)">Required</em>
+            <input (ngModel)="password" name="password" id="password" type="password" class="form-control"
+                placeholder="Password..." required />
+        </div>
+
+        <span (mouseenter)="isHoveringLoginButton=true" (mouseleave)="isHoveringLoginButton=false">
+            <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Login</button>
+        </span>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </form>
+    <br>
+    <div *ngIf="loginInvalid" class="alert alert-danger">Invalid Login Info</div>
+</div>

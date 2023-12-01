@@ -1,0 +1,30 @@
+<!-- Reactive Form Type -->
+<div>
+  <h1>Edit Your Profile </h1>
+  <hr>
+  <div class="col-md-4">
+    <form [formGroup]="profileForm" (ngSubmit)="handleUpdate(profileForm.value)" autocomplete="off" novalidate>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <em
+        *ngIf="!validateFirstName() && profileForm.controls['firstName'].errors?.['required']">Required</em>
+        <em
+        *ngIf="!validateFirstName() && profileForm.controls['firstName'].errors?.['pattern']">Must be alphabets</em>
+        <input formControlName="firstName" id="firstName" type="text" class="form-control" [ngClass]="{error: !validateFirstName()}"
+          placeholder="First Name..."/>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <em
+        *ngIf="!validateLastName() && profileForm.controls['lastName'].errors?.['required']">Required</em>
+        <em
+        *ngIf="!validateLastName() && profileForm.controls['lastName'].errors?.['pattern']">Must be alphabets</em>
+        <input formControlName="lastName" id="lastName" type="text" class="form-control" [ngClass]="{error: !validateLastName()}" placeholder="Last Name..."/>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Save</button>
+      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn btn-warning" (click)="handleLogOut()" style="float: right;">Log out</button>
+
+    </form>
+  </div>
+</div>
